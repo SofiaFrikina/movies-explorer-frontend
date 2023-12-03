@@ -10,12 +10,12 @@ function MoviesCardList({ movies }) {
     }
     return (
         <section className="elements">
-            <div className="elements__list">
+            <ul className="elements__list">
                 {movies.map((movie) => (
                     <MoviesCard movie={movie} key={movie._id} />
                 ))}
-            </div>
-            {isActivePreloader ? (<Preloader />) : (<button onClick={handlePreloader} type="button" className="element__button" aria-label="Показать больше фильмов">
+            </ul>
+            {isActivePreloader ? (<Preloader />) : (<button onClick={handlePreloader} type="button" className="elements__button" aria-label="Показать больше фильмов">
                 Ещё
             </button>)}
         </section>

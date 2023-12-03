@@ -4,21 +4,20 @@ import React from 'react';
 function Techs() {
     return (
         <section className="techs">
-            <h1 className="techs__header">Технологии</h1>
+            <h2 className="techs__header">Технологии</h2>
             <div className="techs__container">
-                <h2 className="techs__title">7 технологий</h2>
+                <h3 className="techs__title">7 технологий</h3>
                 <p className="techs__subtitle">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
             </div>
-            <div className="techs__list">
-                <p className="techs__lang">HTML</p>
-                <p className="techs__lang">CSS</p>
-                <p className="techs__lang">JS</p>
-                <p className="techs__lang">React</p>
-                <p className="techs__lang">Git</p>
-                <p className="techs__lang">Express.js</p>
-                <p className="techs__lang">mongoDB</p>
-            </div>
-
+            <ul className="techs__list">
+                <li className="techs__lang">HTML</li>
+                <li className="techs__lang">CSS</li>
+                <li className="techs__lang">JS</li>
+                <li className="techs__lang">React</li>
+                <li className="techs__lang">Git</li>
+                <li className="techs__lang">Express.js</li>
+                <li className="techs__lang">mongoDB</li>
+            </ul>
         </section>
     )
 }

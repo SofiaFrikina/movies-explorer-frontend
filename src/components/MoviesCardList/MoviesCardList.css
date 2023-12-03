@@ -14,9 +14,10 @@
     grid-template-rows: repeat(2, 1fr);
     column-gap: 28px;
     row-gap: 32px;
+    list-style: none;
 }
 
-.element__button {
+.elements__button {
     margin: 0;
     padding: 0;
     border-radius: 6px;
@@ -30,26 +31,35 @@
     line-height: normal;
     padding-top: 11px;
     padding-bottom: 11px;
+    cursor: pointer;
+    width: 1140px;
 }
 
-.element__button:hover {
+.elements__button:hover {
     opacity: .8;
 }
 
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 1270px) {
     .elements {
         padding: 70px 30px 80px;
         gap: 80px;
+        align-items: center;
     }
     
     .elements__list {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         column-gap: 24px;
         row-gap: 35px;
     }
+
+    .elements__button {
+        width: 708px;
+    }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .elements {
         padding: 40px 10px 80px;
         gap: 80px;
@@ -58,5 +68,9 @@
     .elements__list {
         grid-template-columns: repeat(1, 1fr);
         row-gap: 16px;
+    }
+
+    .elements__button {
+        width: 300px;
     }
 }

@@ -69,6 +69,7 @@
     line-height: normal;
     background-color: transparent;
     border: 0;
+    cursor: pointer;
 }
 
 .profile__change {
@@ -83,6 +84,7 @@
     font-weight: 400;
     line-height: normal;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .profile__change:hover {
@@ -126,7 +128,7 @@
     
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 440px) {
     .profile {
         padding: 70px 30px 40px;
     }

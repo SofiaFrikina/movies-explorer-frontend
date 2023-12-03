@@ -51,6 +51,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    cursor: pointer;
 }
 
 .menu__link:hover {
@@ -58,8 +59,8 @@
 }
 
 .menu__link:active {
-    padding-bottom: 4px;
-    border-bottom: 1px solid #FFF;
+    text-decoration: underline 1px solid #FFF;
+    text-underline-offset: 7px;
 }
 
 .menu__account {
@@ -82,6 +83,7 @@
     font-weight: 500;
     line-height: 16px; /* 114.286% */
     text-decoration: none;
+    cursor: pointer;
 }
 
 .menu__account-text:hover {
@@ -89,8 +91,8 @@
 }
 
 .menu__account-text:active {
-    padding-bottom: 4px;
-    border-bottom: 1px solid #FFF;
+    text-decoration: underline 1px solid #FFF;
+    text-underline-offset: 7px;
 }
 
 .menu__account-logo {
@@ -116,9 +118,14 @@
     flex-shrink: 0;
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 }
 
-@media screen and (max-width: 320px) {
+.menu__button-close:hover {
+    opacity: .8;
+}
+
+@media screen and (max-width: 525px) {
     .menu__container {
         width: 320px;
     }

@@ -10,12 +10,17 @@
     
 }
 
-.header__general {
+.header_general {
     background-color: #073042;
 }
 
-.header__films {
+.header_films {
     background-color: #202020;
+}
+
+.header__logo-link {
+    margin: 0;
+    padding: 0;
 }
 
 .header__logo {

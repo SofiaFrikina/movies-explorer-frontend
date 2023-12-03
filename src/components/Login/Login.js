@@ -6,10 +6,10 @@ import data from '../../utils/constants';
 function Login({ loginInto }) {
 
     return (
-        <section className="authorization">
-            <div className="authorization__container">
-                <img className="authorization__logo" src={headerLogo} alt="Логотип" />
-                <h1 className="authorization__title">Рады видеть!</h1>
+        <main className="authorization">
+            <section className="authorization__container">
+                <Link to="/" className="authorization__logo-link"><img className="authorization__logo" src={headerLogo} alt="Логотип" /></Link>
+                <h2 className="authorization__title">Рады видеть!</h2>
                 <form className="authorization__form">
                     <div className="authorization__label">
                         <p className="authorization__text">E-mail</p>
@@ -21,14 +21,16 @@ function Login({ loginInto }) {
                         <input value={data.password} type="password" placeholder="Пароль" className="authorization__input authorization__input_type_password" id="password-input" minLength="2" maxLength="200" required />
                         <span className="authorization__text-error password-input-error"></span>
                     </div>
-                    <button type="submit" className="authorization__button">Войти</button>
+                    <button type="submit" className="authorization__button authorization__button-login">Войти</button>
                 </form>
-                <Link to="/signup" className="authorization__login">
+                <div className="authorization__sign">
                     <p className="authorization__question">Ещё не зарегистрированы?</p>
-                    <p className="authorization__link">Регистрация</p>
-                </Link>
-            </div>
-        </section>
+                    <Link to="/signup" className="authorization__login">
+                        <p className="authorization__link">Регистрация</p>
+                    </Link>
+                </div>
+            </section>
+        </main>
     )
 }
 

@@ -111,7 +111,7 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1130px) {
     .about-project {
         padding: 90px 50px;
         
@@ -154,10 +154,10 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+
+@media screen and (max-width: 650px) {
     .about-project {
         padding: 70px 18px;
-        
     }
 
     .about-project__header {

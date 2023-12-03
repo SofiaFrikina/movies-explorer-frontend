@@ -34,7 +34,7 @@ function App() {
             <Header
               loggedIn={loggedIn}
               openMenu={handleMenuClick}
-              classNames={"header header__general"}
+              classNames={"header header_general"}
               classNameAccountLogo={"navigation__account-logo navigation__account-logo-general"}
             />
             <Main />
@@ -49,7 +49,7 @@ function App() {
             <Header
               loggedIn={true}
               openMenu={handleMenuClick}
-              classNames={"header header__films"}
+              classNames={"header header_films"}
               classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"}
             />
             <Movies />
@@ -61,7 +61,7 @@ function App() {
             <Header
               loggedIn={true}
               openMenu={handleMenuClick}
-              classNames={"header header__films"}
+              classNames={"header header_films"}
               classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"}
             />
             <SavedMovies />
@@ -73,7 +73,7 @@ function App() {
             <Header
               loggedIn={true}
               openMenu={handleMenuClick}
-              classNames={"header header__films"}
+              classNames={"header header_films"}
               classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"}
             />
             <Profile />

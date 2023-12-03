@@ -21,6 +21,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
+    cursor: pointer;
     
 }
 
@@ -28,7 +29,7 @@
     opacity: 0.7;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .nav-tab {
         display: flex;
         padding: 0;
@@ -40,7 +41,7 @@
 
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 380px) {
     .nav-tab {
         padding-top: 80px;
         padding-bottom: 30px;

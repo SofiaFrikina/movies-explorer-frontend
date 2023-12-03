@@ -12,9 +12,9 @@ function SearchForm() {
                     <div className="search-form__choice">
                         <input type="checkbox"
                             id="switch"
-                            class="search-form__input-tumb" />
+                            className="search-form__input-tumb" />
                         <label for="switch"
-                            class="search-form__toggle"></label>
+                            className="search-form__toggle"></label>
                     </div>
                     <p className="search-form__text">Короткометражки</p>
                 </div>

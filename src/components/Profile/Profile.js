@@ -5,9 +5,9 @@ import data from '../../utils/constants';
 function Profile() {
 
     return (
-        <section className="profile">
-            <div className="profile__container">
-                <h1 className="profile__title">Привет, {data.name}!</h1>
+        <main className="profile">
+            <section className="profile__container">
+                <h2 className="profile__title">Привет, {data.name}!</h2>
                 <form className="profile__form">
                     <div className="profile__label">
                         <p className="profile__text">Имя</p>
@@ -23,8 +23,8 @@ function Profile() {
                 <Link to="/" className="profile__logout">
                     <p className="profile__link">Выйти из аккаунта</p>
                 </Link>
-            </div>
-        </section>
+            </section>
+        </main>
     )
 }
 

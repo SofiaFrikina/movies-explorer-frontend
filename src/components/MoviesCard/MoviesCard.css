@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 360px;
 }
 
 .element__description {
@@ -55,6 +56,7 @@
     border: 0;
     background-color: transparent;
     align-self: center;
+    cursor: pointer;
 }
 
 .element__button-unsaved:hover {
@@ -65,14 +67,24 @@
     background-image: url('../../images/savedbutton.svg');
 }
 
-@media screen and (max-width: 768px) {
+
+
+@media screen and (max-width: 1270px) {
     .element {
-        max-width: 324px;
+        width: 342px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .element {
-        max-width: 300px;
+        width: 300px;
+    }
+
+    .element__text {
+        font-size: 12px;
+    }
+
+    .element__time {
+        font-size: 10px;
     }
 }
