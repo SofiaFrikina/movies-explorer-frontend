@@ -1,8 +1,7 @@
 .about-project {
-    margin: 0 auto;
+    margin: 110px 70px;
     padding: 0;
     background-color: #202020;
-    padding: 110px 70px;
 }
 
 .about-project__header {
@@ -59,15 +58,17 @@
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
 }
 
 .about-project__backend {
     margin: 0;
     padding: 0;
-    width: 228px;
+    width: 100%;
+    max-width: 228px;
     background-color: #3DDC84;
     align-self: center;
-    padding: 9px 14px;
+    padding: 9px 0;
     color: #000;
     text-align: center;
     font-size: 14px;
@@ -79,7 +80,7 @@
 .about-project__frontend {
     margin: 0;
     padding: 9px 0;
-    min-width: 912px;
+    width: 100%;
     background-color: #303030;
     align-self: center;
     color: #FFF;
@@ -92,28 +93,30 @@
 
 .about-project__text {
     margin: 0;
-    padding: 14px 0;
+    margin: 14px 0;
     color: #8B8B8B;
     text-align: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 17px;
-    align-self: center;
+    
 }
 
 .about-project__text:nth-child(1) {
-    width: 228px;
+    width: 100%;
+    max-width: 228px;
+    
 }
 
 .about-project__text:nth-child(2) {
-    min-width: 912px;
+    width: 100%;
 }
 
 
-@media screen and (max-width: 1130px) {
+@media screen and (max-width: 1140px) {
     .about-project {
-        padding: 90px 50px;
+        margin: 90px 50px;
         
     }
 
@@ -126,18 +129,16 @@
         gap: 22px;
     }
 
+    
+
     .about-project__subtitle {
         font-size: 12px;
         line-height: 18px;
     }
 
     .about-project__backend {
-        width: 140px;
-        padding: 9px 10px;
-    }
-
-    .about-project__frontend {
-        min-width: 528px;
+        max-width: 140px;
+        
     }
 
     .about-project__text {
@@ -146,12 +147,10 @@
     }
 
     .about-project__text:nth-child(1) {
-        width: 140px;
+        max-width: 140px;
     }
 
-    .about-project__text:nth-child(2) {
-        min-width: 528px;
-    }
+    
 }
 
 
@@ -190,29 +189,26 @@
     }
 
     .about-project__backend {
-        width: 100px;
-        padding: 11px 10px;
+        max-width: 100px;
+        padding: 11px 0;
         font-size: 11px;
     }
 
     .about-project__frontend {
-        min-width: 184px;
         padding: 11px 0;
         font-size: 11px;
     }
 
     .about-project__text {
-        padding: 10px 0;
+        margin: 10px 0;
         font-size: 11px;
     }
 
     .about-project__text:nth-child(1) {
-        width: 100px;
+        max-width: 100px;
     }
 
-    .about-project__text:nth-child(2) {
-        min-width: 184px;
-    }
+    
 }
 
 

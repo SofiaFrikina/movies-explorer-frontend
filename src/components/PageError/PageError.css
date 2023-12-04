@@ -1,6 +1,6 @@
 .page-error {
-    margin: 0 auto;
-    padding: 246px 440px 60px;
+    margin: 246px auto 60px;
+    padding: 0;
     background-color: #202020;
 }
 
@@ -54,13 +54,13 @@
 
 @media screen and (max-width: 768px) {
     .page-error {
-        padding: 408px 184px 222px;
+        margin: 408px auto 222px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .page-error {
-        padding: 329px 10px 30px;
+        margin: 329px 0 30px;
     }
     
     .page-error__title {
