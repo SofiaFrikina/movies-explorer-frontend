@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* sofiafr@51.250.67.79:/home/sofiafr/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
