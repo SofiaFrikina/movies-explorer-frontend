@@ -1,0 +1,90 @@
+.element {
+    margin: 0;
+    padding: 0;
+    border-radius: 6px;
+    background: #222;
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 360px;
+}
+
+.element__description {
+    margin: 0;
+    padding: 18px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.element__text {
+    margin: 0;
+    padding: 0;
+    color: #FFF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.element__time {
+    margin: 0;
+    padding: 0;
+    color: #8B8B8B;
+    text-align: right;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 138.462% */
+}
+
+.element__image {
+    margin: 0;
+    padding: 0;
+}
+
+.element__button-unsaved {
+    margin: 18px 0;
+    padding: 0;
+    background-image: url('../../images/unsavedbutton.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100px;
+    height: 29px;
+    flex-shrink: 0;
+    border: 0;
+    background-color: transparent;
+    align-self: center;
+    cursor: pointer;
+}
+
+.element__button-unsaved:hover {
+    opacity: .8;
+}
+
+.element__button-saved {
+    background-image: url('../../images/savedbutton.svg');
+}
+
+
+
+@media screen and (max-width: 1270px) {
+    .element {
+        width: 342px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .element {
+        width: 300px;
+    }
+
+    .element__text {
+        font-size: 12px;
+    }
+
+    .element__time {
+        font-size: 10px;
+    }
+}

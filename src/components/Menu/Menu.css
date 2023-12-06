@@ -1,0 +1,155 @@
+.menu {
+    position: fixed;
+    transition: linear 0.5s;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .3);;
+}
+
+.menu_opened {
+    visibility: visible;
+    opacity: 1;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu__container {
+    margin: 0;
+    padding: 0;
+    background: #202020;
+    width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+
+.menu__info {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 159px;
+    align-items: center;
+}
+
+.menu__link {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.menu__link:hover {
+    opacity: .7;
+}
+
+.menu__link:active {
+    text-decoration: underline 1px solid #FFF;
+    text-underline-offset: 7px;
+}
+
+.menu__account {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin-bottom: 92px;
+    
+}
+
+.menu__account-text {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 114.286% */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu__account-text:hover {
+    opacity: .7;
+}
+
+.menu__account-text:active {
+    text-decoration: underline 1px solid #FFF;
+    text-underline-offset: 7px;
+}
+
+.menu__account-logo {
+    margin: 0;
+    width: 10.383px;
+    height: 10.669px;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 6px;
+    padding: 9.75px 9.81px 9.58px;
+    background-color: #313131;
+}
+
+.menu__button-close {
+    position: absolute;
+    background-image: url('../../images/menu__button-close.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 22.44px;
+    right: 22.44px;
+    width: 31px;
+    height: 31px;
+    flex-shrink: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.menu__button-close:hover {
+    opacity: .8;
+}
+
+@media screen and (max-width: 525px) {
+    .menu__container {
+        width: 320px;
+    }
+
+    .menu__info {
+        gap: 24px;
+        margin-top: 144px;
+        
+    }
+    
+    .menu__link:active {
+        padding-bottom: 7px;
+    }
+    
+    .menu__account {
+        margin-bottom: 48px;
+    }
+    
+    .menu__account-text:active {
+        padding-bottom: 7px;
+    }
+    
+    .menu__button-close {
+        top: 13.44px;
+        right: 13.44px;
+    }
+}
