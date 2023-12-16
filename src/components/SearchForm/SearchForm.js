@@ -32,7 +32,7 @@ function SearchForm({ onSearch, handleChangeCheckbox, isSearchText, isActiveChec
                             checked={isActiveCheckbox}
                             value={isActiveCheckbox}
                         />
-                        <label for="switch"
+                        <label htmlFor="switch"
                             className="search-form__toggle"></label>
                     </div>
                     <p className="search-form__text">Короткометражки</p>

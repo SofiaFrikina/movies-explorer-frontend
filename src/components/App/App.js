@@ -144,8 +144,8 @@ function App() {
       setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     } else {
       moviesApi.getMovies()
-        .then((res) => {
-          const resultMovies = moviesArray(res);
+        .then((data) => {
+          const resultMovies = moviesArray(data);
           localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
           setFilteredMovies(resultMovies);
         })

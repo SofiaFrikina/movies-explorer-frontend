@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
@@ -12,7 +12,10 @@ function Movies({ filteredMovies }) {
     const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
     const [message, setMessage] = React.useState(false);
 
-
+    React.useEffect(() => {
+        getOnSearchMovies(isSearchText);
+        onSetSearchShortMovies();
+    }, [isSearchText, isActiveCheckbox])
 
     React.useEffect(() => {
         restoringPreviousSearch();
@@ -32,6 +35,10 @@ function Movies({ filteredMovies }) {
         return moviesList.filter((movie) => movie.duration <= 40)
     }
 
+    function onSetSearchShortMovies() {
+        setShortMovies(onSearchShortMovies(allMovies));
+    }
+
     //восстановление результатов предыдущего поиска: сохранила в localStorage текст запроса, состояние переключателя короткометражек и найденные фильмы
     function restoringPreviousSearch() {
         if (localStorage.getItem('previousText')) {
@@ -46,7 +53,7 @@ function Movies({ filteredMovies }) {
         return;
     }
 
-    const getOnSearchMovies = useCallback((isSearchText) => {
+    function getOnSearchMovies(isSearchText) {
         setIsLoading(true);
         setAllMovies([]);
         try {
@@ -56,7 +63,7 @@ function Movies({ filteredMovies }) {
                     setInfoTooltipOpen(true);
                     setMessage(false)
                 } else {
-                    setAllMovies(onSearch(filteredMovies, isSearchText));
+                    setAllMovies(moviesData);
                     localStorage.setItem('previousText', isSearchText);
                     localStorage.setItem('previousMovies', JSON.stringify(moviesData));
                     localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
@@ -69,12 +76,9 @@ function Movies({ filteredMovies }) {
         finally {
             setIsLoading(false);
         }
-    }, [filteredMovies, isActiveCheckbox])
+    }
 
-    React.useEffect(() => {
-        getOnSearchMovies();
-        setShortMovies(onSearchShortMovies(allMovies))
-    }, [allMovies, getOnSearchMovies])
+
 
 
     function closeAllPopups() {
