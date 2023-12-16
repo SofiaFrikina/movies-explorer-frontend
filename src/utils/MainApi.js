@@ -4,43 +4,16 @@ class MainApi {
         this._headers = config.headers;
     }
 
-    _checkResponse = (res) => {
+    _handleResponse = (res) => {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Ошибка ${res.status}`);
-    }
+        return Promise.reject('Произошла ошибка')
+        // return Promise.reject(new Error('Произошла ошибка.'))
+    };
 
     setToken(token) {
         this._headers['authorization'] = `Bearer ${token}`;
-    };
-
-    register(name, email, password) {
-        return fetch(`${this._url}/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password,
-                "name": name
-            }),
-        })
-            .then(this._checkResponse);
-    };
-    authorize(email, password) {
-        return fetch(`${this._url}/signin`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password
-            }),
-        })
-            .then(this._checkResponse);
     };
 
     getUser() {
@@ -48,7 +21,7 @@ class MainApi {
             method: 'GET',
             headers: this._headers,
         })
-            .then(this._checkResponse)
+            .then(this._handleResponse);
     };
 
     getMovies() {
@@ -56,7 +29,7 @@ class MainApi {
             method: 'GET',
             headers: this._headers,
         })
-            .then(this._checkResponse)
+            .then(this._handleResponse);
     };
 
     editUser(data) {
@@ -64,11 +37,11 @@ class MainApi {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                email: data.email
+                email: data.email,
+                name: data.name
             })
         })
-            .then(this._checkResponse)
+            .then(this._handleResponse);
     };
 
     addMovies(data) {
@@ -90,7 +63,7 @@ class MainApi {
                 nameEN: data.nameEN,
             })
         })
-            .then(this._checkResponse)
+            .then(this._handleResponse);
     };
 
 
@@ -102,16 +75,7 @@ class MainApi {
             .then(this._handleResponse);
     };
 
-    checkToken(token) {
-        return fetch(`${this._url}/users/me`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            }
-        })
-            .then(this._handleResponse);
-    }
+
     /*
     editAvatar(data) {
         return fetch(`${this._url}/users/me/avatar`, {

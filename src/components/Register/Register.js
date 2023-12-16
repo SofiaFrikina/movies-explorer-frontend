@@ -5,11 +5,15 @@ import headerLogo from '../../images/logo m.svg';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Register({ onRegister, errorMessage }) {
-    const { values, errors, isValid, handleChange } = useFormWithValidation();
+    const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
+    /*React.useEffect(() => {
+        resetForm()
+    }, [resetForm]);*/
+
     function handleSubmit(evt) {
-        const { name, email, password } = values;
         evt.preventDefault();
-        onRegister({ name, email, password })
+        const { name, email, password } = values;
+        onRegister(name, email, password);
     }
 
     return (
@@ -20,7 +24,7 @@ function Register({ onRegister, errorMessage }) {
                 <form className="authorization__form" onSubmit={handleSubmit} noValidate>
                     <div className="authorization__label">
                         <p className="authorization__text">Имя</p>
-                        <input type="text" name="name" value={values.name || ""} onChange={handleChange} pattern="/[^a-zA-Zа-яёА-ЯЁ\-\ ]/u" placeholder="Имя" className="authorization__input authorization__input_type_name" id="name-input" minLength="2" maxLength="30" required />
+                        <input type="text" name="name" value={values.name || ""} onChange={handleChange} pattern="^[a-zA-Zа-яА-Я \-]+$" placeholder="Имя" className="authorization__input authorization__input_type_name" id="name-input" minLength="2" maxLength="30" required />
                         <span className={`authorization__text-error name-input-error ${errors.name ? "authorization__text-error_active" : ""}`}>{errors.name}</span>
                     </div>
                     <div className="authorization__label">

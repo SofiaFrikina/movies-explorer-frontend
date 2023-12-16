@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCallback } from 'react';
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -16,6 +16,9 @@ import Menu from '../Menu/Menu';
 import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { register, authorize, checkToken } from '../../utils/Auth';
+import moviesApi from '../../utils/MoviesApi';
+import { moviesArray } from '../../utils/MoviesArray';
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -24,8 +27,9 @@ function App() {
   const navigate = useNavigate();
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
+  const [saveMovies, setSaveMovies] = React.useState([]);
   const [message, setMessage] = React.useState(false);
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
 
   const cleanErrorMessage = useCallback(() => {
     setErrorMessage("");
@@ -43,7 +47,7 @@ function App() {
       Promise.all([mainApi.getUser(), mainApi.getMovies()])
         .then(([resUser, resMovie]) => {
           setCurrentUser(resUser);
-          setMovies(resMovie);
+          setSaveMovies(resMovie);//сохраненные фильмы должны быть
         })
         .catch((err) => console.log(err))
     }
@@ -52,18 +56,22 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      mainApi.checkToken(token)
+      checkToken(token)
         .then((res) => {
           mainApi.setToken(token);
-          setCurrentUser({ email: res.email, password: res.password });
+          setCurrentUser({ name: res.name, email: res.email });
           setLoggedIn(true);
         })
         .catch((err) => console.log(err))
     }
   }, [navigate]);
 
+  React.useEffect(() => {
+    handleGetMovies();
+  }, []);
+
   function hadleRegister(name, email, password) {
-    mainApi.register(name, email, password)
+    register(name, email, password)
       .then((res) => {
         setInfoTooltipOpen(true);
         if (res) {
@@ -85,15 +93,15 @@ function App() {
   }
 
   function handleLogin(email, password) {
-    mainApi.authorize(email, password)
+    authorize(email, password)
       .then((res) => {
         if (res) {
           localStorage.setItem('token', res.token);
           mainApi.setToken(res.token);
           setLoggedIn(true);
-          setInfoTooltipOpen(true)
           //попробовать потом заменить нижнюю строку
-          setCurrentUser({ email: res.email, password: res.password });
+          setCurrentUser({ name: res.name, email: res.email });
+          localStorage.setItem('loggedIn', true);
           navigate('/movies', { replace: true })
         }
       })
@@ -111,8 +119,44 @@ function App() {
           setErrorMessage('При авторизации произошла ошибка. Токен не передан или передан не в том формате.');
         }
       });
-
   }
+
+  function handleUpdateUser(data) {
+    mainApi.editUser(data)
+      .then((newUser) => {
+        setCurrentUser(newUser);
+      })
+      .catch((err) => {
+        setMessage(false);
+        setInfoTooltipOpen(true);
+        if (err === 409) {
+          setErrorMessage('Пользователь с таким email уже существует.');
+        }
+        else {
+          setErrorMessage('При обновлении пользователя произошла ошибка.');
+        }
+      });
+  }
+
+  //загружаем, получаем фильмы
+  function handleGetMovies() {
+    if (localStorage.getItem('filteredMovies')) {
+      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    } else {
+      moviesApi.getMovies()
+        .then((res) => {
+          const resultMovies = moviesArray(res);
+          localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
+          setFilteredMovies(resultMovies);
+        })
+        .catch((err) => {
+          console.log(err);
+          localStorage.removeItem('filteredMovies');
+          setFilteredMovies([]);
+        });
+    }
+  }
+
 
   function handleMenuClick() {
     setMenuOpen(true);
@@ -147,8 +191,13 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/signup" element={<Register onRegister={hadleRegister} errorMessage={errorMessage} />} />
-          <Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />
+
+          {!loggedIn ? (<Route path="/signup" element={<Register onRegister={hadleRegister} errorMessage={errorMessage} />} />) : (<Route path="/signup" element={<Navigate to="/" />} />)}
+          {!loggedIn ? (<Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />) : (<Route path="/signin" element={<Navigate to="/" />} />)}
+
+
+
+
 
           <Route path="/movies" element={
             <>
@@ -159,9 +208,14 @@ function App() {
                 classNames={"header header_films"}
                 classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"} />
               <ProtectedRouteElement
-                component={Movies} />
+                component={Movies}
+                loggedIn={true}
+                filteredMovies={filteredMovies}
+              />
               <ProtectedRouteElement
-                component={Footer} />
+                component={Footer}
+                loggedIn={true}
+              />
             </>
           } />
           <Route path="/saved-movies" element={
@@ -187,7 +241,12 @@ function App() {
                 classNames={"header header_films"}
                 classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"} />
               <ProtectedRouteElement
-                component={Profile} />
+                component={Profile}
+                loggedIn={true}
+                onSignOut={onSignOut}
+                onProfile={handleUpdateUser}
+                errorMessage={errorMessage}
+              />
             </>
           } />
 
