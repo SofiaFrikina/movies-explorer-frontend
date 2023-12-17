@@ -8,8 +8,10 @@ function MoviesCardList({ movies, isLoading }) {
     const [moviesCount, setMoviesCount] = React.useState(0);
     const [biggerMoviesCount, setBiggerMoviesCount] = React.useState(0);
     const [isActivePreloader, setIsActivePreloader] = React.useState(false);
+    const [moviesToList, setMoviesToList] = React.useState([]);
 
     React.useEffect(() => {
+        checkedCountMovies();
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -38,18 +40,28 @@ function MoviesCardList({ movies, isLoading }) {
 
     //функция показать больше фильмов
     function handlePreloaderButton() {
-        checkedCountMovies();
-        setMoviesCount(moviesCount + biggerMoviesCount);
-        if (moviesCount - biggerMoviesCount) {
+        setMoviesToList(movies.slice(0, moviesToList.length + biggerMoviesCount));
+        //checkedCountMovies();
+        //setMoviesCount(moviesCount + biggerMoviesCount);
+        if (moviesToList.length >= movies.length - biggerMoviesCount) {
             setIsActivePreloader(false)
         }
     }
 
+    React.useEffect(() => {
+        setMoviesToList(movies.slice(0, moviesCount));
+        if (movies.length > moviesCount) {
+            setIsActivePreloader(true)
+        } else {
+            setIsActivePreloader(false)
+        }
+    }, [movies, moviesCount])
+
     return (
         <section className="elements">
             <ul className="elements__list">
-                {isLoading ? <Preloader /> : movies.slice(0, moviesCount).map((movie) => (
-                    <MoviesCard movie={movie} key={movie._id} />
+                {isLoading ? <Preloader /> : moviesToList.map((movie) => (
+                    <MoviesCard movie={movie} key={movie.movieId} />
                 ))}
 
             </ul>

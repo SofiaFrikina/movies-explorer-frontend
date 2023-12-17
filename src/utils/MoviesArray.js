@@ -5,7 +5,7 @@ export function moviesArray(movie) {
         movie.map((movie) => ({
             country: movie.country,
             director: movie.director,
-            duretion: movie.duration,
+            duration: movie.duration,
             year: movie.year,
             description: movie.description,
             image: `${BASE_URL}${movie.image.url}`,

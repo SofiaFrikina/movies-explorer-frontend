@@ -31,6 +31,8 @@ function Movies({ filteredMovies }) {
         });
     }
 
+
+
     function onSearchShortMovies(moviesList) {
         return moviesList.filter((movie) => movie.duration <= 40)
     }
@@ -58,16 +60,15 @@ function Movies({ filteredMovies }) {
         setAllMovies([]);
         try {
             const moviesData = onSearch(filteredMovies, isSearchText)
-            if (moviesData.length > 0) {
-                if (moviesData.length === 0) {
-                    setInfoTooltipOpen(true);
-                    setMessage(false)
-                } else {
-                    setAllMovies(moviesData);
-                    localStorage.setItem('previousText', isSearchText);
-                    localStorage.setItem('previousMovies', JSON.stringify(moviesData));
-                    localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
-                }
+            console.log(filteredMovies, isSearchText);
+            if (moviesData.length === 0) {
+                setInfoTooltipOpen(true);
+                setMessage(false)
+            } else {
+                setAllMovies(moviesData);
+                localStorage.setItem('previousText', isSearchText);
+                localStorage.setItem('previousMovies', JSON.stringify(moviesData));
+                localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
             }
             return;
         } catch (err) {
@@ -77,8 +78,6 @@ function Movies({ filteredMovies }) {
             setIsLoading(false);
         }
     }
-
-
 
 
     function closeAllPopups() {

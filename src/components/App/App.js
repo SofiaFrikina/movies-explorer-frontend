@@ -169,6 +169,13 @@ function App() {
 
   function onSignOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('filteredMovies')
+    localStorage.removeItem('isActiveCheckBox');
+    localStorage.removeItem('isSearchText');
+    localStorage.removeItem('resultMovies');
+    localStorage.removeItem('previousText');
+    localStorage.removeItem('previousMovies');
+    localStorage.removeItem('previousCheckbox');
     setLoggedIn(false);
     setCurrentUser({});
     navigate('/')
