@@ -3,7 +3,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { DESKTOP_SIZE, MEDIUM_SIZE, MOBILE_SIZE, MOVIES_COUNT_DESKTOP_SIZE, MOVIES_COUNT_MEDIUM_SIZE, MOVIES_COUNT_MOBILE_SIZE, MORE_MOVIES_COUNT_DESKTOP_SIZE, MORE_MOVIES_COUNT_MEDIUM_SIZE, MORE_MOVIES_COUNT_MOBILE_SIZE } from '../../utils/constants';
 
-function MoviesCardList({ movies, isLoading }) {
+
+function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     const [moviesCount, setMoviesCount] = React.useState(0);
     const [biggerMoviesCount, setBiggerMoviesCount] = React.useState(0);
@@ -40,8 +41,8 @@ function MoviesCardList({ movies, isLoading }) {
 
     //функция показать больше фильмов
     function handlePreloaderButton() {
+        checkedCountMovies();
         setMoviesToList(movies.slice(0, moviesToList.length + biggerMoviesCount));
-        //checkedCountMovies();
         //setMoviesCount(moviesCount + biggerMoviesCount);
         if (moviesToList.length >= movies.length - biggerMoviesCount) {
             setIsActivePreloader(false)
@@ -61,7 +62,7 @@ function MoviesCardList({ movies, isLoading }) {
         <section className="elements">
             <ul className="elements__list">
                 {isLoading ? <Preloader /> : moviesToList.map((movie) => (
-                    <MoviesCard movie={movie} key={movie.movieId} />
+                    <MoviesCard movie={movie} key={movie.movieId} isSavedCard={isSavedCard} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
                 ))}
 
             </ul>

@@ -27,7 +27,7 @@ function App() {
   const navigate = useNavigate();
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [saveMovies, setSaveMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [message, setMessage] = React.useState(false);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
 
@@ -47,7 +47,7 @@ function App() {
       Promise.all([mainApi.getUser(), mainApi.getMovies()])
         .then(([resUser, resMovie]) => {
           setCurrentUser(resUser);
-          setSaveMovies(resMovie);//сохраненные фильмы должны быть
+          setSavedMovies(resMovie);//сохраненные фильмы должны быть
         })
         .catch((err) => console.log(err))
     }
@@ -59,7 +59,7 @@ function App() {
       checkToken(token)
         .then((res) => {
           mainApi.setToken(token);
-          setCurrentUser({ name: res.name, email: res.email });
+          setCurrentUser({ name: res.name, email: res.email, _id: res._id });
           setLoggedIn(true);
         })
         .catch((err) => console.log(err))
@@ -157,6 +157,30 @@ function App() {
     }
   }
 
+  //сохраняем фильм
+  function handleSaveMovie(movie) {
+    mainApi.addMovies(movie)
+      .then((item) => {
+        setSavedMovies([item, ...savedMovies])
+        //console.log(savedMovies)
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
+
+  //удаляем фильм
+  function handleDeleteMovie(_id) {
+    mainApi.deleteMovie(_id)
+      .then(() => {
+        const newSavedMovies = savedMovies.filter((movie) => movie._id !== _id)
+        setSavedMovies(newSavedMovies)
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
+
 
   function handleMenuClick() {
     setMenuOpen(true);
@@ -210,18 +234,21 @@ function App() {
             <>
               <ProtectedRouteElement
                 component={Header}
-                loggedIn={true}
+                loggedIn={loggedIn}
                 openMenu={handleMenuClick}
                 classNames={"header header_films"}
                 classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"} />
               <ProtectedRouteElement
                 component={Movies}
-                loggedIn={true}
+                loggedIn={loggedIn}
                 filteredMovies={filteredMovies}
+                onDeleteCard={handleDeleteMovie}
+                onSaveCard={handleSaveMovie}
+                savedMovies={savedMovies}
               />
               <ProtectedRouteElement
                 component={Footer}
-                loggedIn={true}
+                loggedIn={loggedIn}
               />
             </>
           } />
@@ -229,27 +256,35 @@ function App() {
             <>
               <ProtectedRouteElement
                 component={Header}
-                loggedIn={true}
+                loggedIn={loggedIn}
                 openMenu={handleMenuClick}
                 classNames={"header header_films"}
                 classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"} />
               <ProtectedRouteElement
-                component={SavedMovies} />
+                component={SavedMovies}
+                loggedIn={loggedIn}
+                filteredMovies={filteredMovies}
+                onDeleteCard={handleDeleteMovie}
+                onSaveCard={handleSaveMovie}
+                savedMovies={savedMovies}
+              />
               <ProtectedRouteElement
-                component={Footer} />
+                component={Footer}
+                loggedIn={loggedIn}
+              />
             </>
           } />
           <Route path="/profile" element={
             <>
               <ProtectedRouteElement
                 component={Header}
-                loggedIn={true}
+                loggedIn={loggedIn}
                 openMenu={handleMenuClick}
                 classNames={"header header_films"}
                 classNameAccountLogo={"navigation__account-logo navigation__account-logo-other"} />
               <ProtectedRouteElement
                 component={Profile}
-                loggedIn={true}
+                loggedIn={loggedIn}
                 onSignOut={onSignOut}
                 onProfile={handleUpdateUser}
                 errorMessage={errorMessage}

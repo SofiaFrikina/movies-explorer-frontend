@@ -6,9 +6,9 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 function Login({ onLogin, errorMessage }) {
 
     const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
-    /*React.useEffect(() => {
+    React.useEffect(() => {
         resetForm()
-    }, [resetForm]);*/
+    }, [resetForm]);
 
     function handleSubmit(evt) {
         const { email, password } = values;
@@ -25,12 +25,12 @@ function Login({ onLogin, errorMessage }) {
                     <div className="authorization__label">
                         <p className="authorization__text">E-mail</p>
                         <input type="email" name="email" value={values.email || ""} onChange={handleChange} pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$" placeholder="Email" className="authorization__input authorization__input_type_email" id="email-input" required />
-                        <span className={`authorization__text-error email-input-error ${errors.name ? "authorization__text-error_active" : ""}`}>{errors.email}</span>
+                        <span className={`authorization__text-error email-input-error ${errors.email ? "authorization__text-error_active" : ""}`}>{errors.email}</span>
                     </div>
                     <div className="authorization__label">
                         <p className="authorization__text">Пароль</p>
                         <input type="password" name="password" value={values.password || ""} onChange={handleChange} placeholder="Пароль" className="authorization__input authorization__input_type_password" id="password-input" required />
-                        <span className={`authorization__text-error password-input-error ${errors.name ? "authorization__text-error_active" : ""}`}>{errors.password}</span>
+                        <span className={`authorization__text-error password-input-error ${errors.password ? "authorization__text-error_active" : ""}`}>{errors.password}</span>
                     </div>
                     <div className="authorization__button-label authorization__button-login">
                         <span className="authorization__button-error">{errorMessage}</span>

@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
-function Movies({ filteredMovies }) {
+function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
     const [isLoading, setIsLoading] = React.useState(false);
     const [isSearchText, setIsSearchText] = React.useState('');
     const [isActiveCheckbox, setIsActiveCheckbox] = React.useState(false);
@@ -13,8 +13,9 @@ function Movies({ filteredMovies }) {
     const [message, setMessage] = React.useState(false);
 
     React.useEffect(() => {
-        getOnSearchMovies(isSearchText);
-        onSetSearchShortMovies();
+        getOnSearchMovies();
+        //onSetSearchShortMovies();
+        setShortMovies(onSearchShortMovies(allMovies));
     }, [isSearchText, isActiveCheckbox])
 
     React.useEffect(() => {
@@ -27,19 +28,16 @@ function Movies({ filteredMovies }) {
     //поиск фильмов
     function onSearch(moviesList, searchMovie) {
         return moviesList.filter((movie) => {
-            return (movie.nameRU.toLowerCase().includes(searchMovie.toLowerCase) || movie.nameEN.toLowerCase().includes(searchMovie.toLowerCase));
+            return (movie.nameRU.toLowerCase().includes(searchMovie.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchMovie.toLowerCase()));
         });
     }
 
-
-
     function onSearchShortMovies(moviesList) {
-        return moviesList.filter((movie) => movie.duration <= 40)
+        return moviesList.filter((movie) => {
+            return movie.duration <= 40;
+        })
     }
 
-    function onSetSearchShortMovies() {
-        setShortMovies(onSearchShortMovies(allMovies));
-    }
 
     //восстановление результатов предыдущего поиска: сохранила в localStorage текст запроса, состояние переключателя короткометражек и найденные фильмы
     function restoringPreviousSearch() {
@@ -55,20 +53,23 @@ function Movies({ filteredMovies }) {
         return;
     }
 
-    function getOnSearchMovies(isSearchText) {
+    function getOnSearchMovies() {
         setIsLoading(true);
         setAllMovies([]);
         try {
-            const moviesData = onSearch(filteredMovies, isSearchText)
-            console.log(filteredMovies, isSearchText);
-            if (moviesData.length === 0) {
-                setInfoTooltipOpen(true);
-                setMessage(false)
-            } else {
-                setAllMovies(moviesData);
-                localStorage.setItem('previousText', isSearchText);
-                localStorage.setItem('previousMovies', JSON.stringify(moviesData));
-                localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
+
+            //console.log(filteredMovies, isSearchText);
+            if (isSearchText.length > 0) {
+                const moviesData = onSearch(filteredMovies, isSearchText)
+                if (moviesData.length === 0) {
+                    setInfoTooltipOpen(true);
+                    setMessage(false)
+                } else {
+                    setAllMovies(moviesData);
+                    localStorage.setItem('previousText', isSearchText);
+                    localStorage.setItem('previousMovies', JSON.stringify(moviesData));
+                    localStorage.setItem('previousCheckbox', JSON.stringify(isActiveCheckbox));
+                }
             }
             return;
         } catch (err) {
@@ -87,7 +88,7 @@ function Movies({ filteredMovies }) {
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} />
+            <MoviesCardList movies={isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} isSavedCard={false} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
             <InfoTooltip
                 isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}
