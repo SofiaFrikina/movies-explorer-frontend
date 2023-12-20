@@ -1,10 +1,8 @@
 import React from 'react';
 
 function MoviesCard({ movie, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
-    //const [isSavedCard, setSavedCard] = React.useState(false);
+    let [isLiked, setIsLiked] = React.useState(false)
 
-    //const time = movie.duretion;
-    let isLiked = false;
     let likedId;
     likedId = savedMovies.some((card) => {
         if (card.movieId === movie.movieId) {
@@ -25,10 +23,14 @@ function MoviesCard({ movie, isSavedCard, onDeleteCard, onSaveCard, savedMovies 
         }
     }
 
-
-    /*function handleSavedClick() {
-        return isLiked || isSavedCard ? onDeleteCard(movie._id ? movie._id : likedId) : onSaveCard(movie)
-    }*/
+    function onLikeandSave() {
+        if (isLiked || isSavedCard) {
+            onDeleteCard(movie._id ? movie._id : likedId)
+        } else {
+            onSaveCard(movie);
+            setIsLiked(!isLiked)
+        }
+    }
 
     return (
         <li className="element">
@@ -37,9 +39,7 @@ function MoviesCard({ movie, isSavedCard, onDeleteCard, onSaveCard, savedMovies 
                 <p className="element__time">{handleDuration(duration)}</p>
             </div>
             <a className="element__image-link" href={movie.trailerLink} rel="noreferrer" target="_blank"><img className="element__image" src={movie.image} alt={`${movie.name}`} /></a>
-            <button onClick={() => {
-                isLiked || isSavedCard ? onDeleteCard(movie._id ? movie._id : likedId) : onSaveCard(movie)
-            }} type="button" className={isSavedCard ? "element__button-unsaved element__button-delete" : isLiked ? "element__button-unsaved element__button-saved" : "element__button-unsaved"} aria-label="Сохранить фильм"></button>
+            <button onClick={onLikeandSave} type="button" className={isSavedCard ? "element__button-unsaved element__button-delete" : isLiked ? "element__button-unsaved element__button-saved" : "element__button-unsaved"} aria-label="Сохранить фильм"></button>
         </li>
     )
 }

@@ -158,11 +158,10 @@ function App() {
   }
 
   //сохраняем фильм
-  function handleSaveMovie(movie) {
-    mainApi.addMovies(movie)
-      .then((item) => {
-        setSavedMovies([item, ...savedMovies])
-        //console.log(savedMovies)
+  function handleSaveMovie(data) {
+    mainApi.addMovies(data)
+      .then((savedMovie) => {
+        setSavedMovies([savedMovie, ...savedMovies])
       })
       .catch((err) => {
         console.log(err)
@@ -170,11 +169,10 @@ function App() {
   }
 
   //удаляем фильм
-  function handleDeleteMovie(_id) {
-    mainApi.deleteMovie(_id)
+  function handleDeleteMovie(movieId) {
+    mainApi.deleteMovie(movieId)
       .then(() => {
-        const newSavedMovies = savedMovies.filter((movie) => movie._id !== _id)
-        setSavedMovies(newSavedMovies)
+        setSavedMovies(savedMovies.filter((item) => item._id !== movieId))
       })
       .catch((err) => {
         console.log(err)
@@ -226,10 +224,6 @@ function App() {
           {!loggedIn ? (<Route path="/signup" element={<Register onRegister={hadleRegister} errorMessage={errorMessage} />} />) : (<Route path="/signup" element={<Navigate to="/" />} />)}
           {!loggedIn ? (<Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />) : (<Route path="/signin" element={<Navigate to="/" />} />)}
 
-
-
-
-
           <Route path="/movies" element={
             <>
               <ProtectedRouteElement
@@ -263,7 +257,7 @@ function App() {
               <ProtectedRouteElement
                 component={SavedMovies}
                 loggedIn={loggedIn}
-                filteredMovies={filteredMovies}
+                filteredMovies={savedMovies}
                 onDeleteCard={handleDeleteMovie}
                 onSaveCard={handleSaveMovie}
                 savedMovies={savedMovies}

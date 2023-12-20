@@ -42,7 +42,7 @@ function Profile({ onSignOut, onProfile, errorMessage }) {
                     <div className="profile__label">
                         <p className="profile__text">E-mail</p>
                         <input type="email" name="email" value={values.email || ""} onChange={handleChange} pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$" placeholder="Email" className="profile__input profile__input_type_email" id="email-input" required />
-                        <span className={`profile__text-error ${errors.name ? "profile__text-error_active" : ""}`}>{errors.name}</span>
+                        <span className={`profile__text-error ${errors.email ? "profile__text-error_active" : ""}`}>{errors.email}</span>
                     </div>
                     <div className="profile__button-label">
                         <span className="profile__button-error">{errorMessage}</span>

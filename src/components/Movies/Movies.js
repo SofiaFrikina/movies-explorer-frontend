@@ -14,7 +14,6 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
 
     React.useEffect(() => {
         getOnSearchMovies();
-        //onSetSearchShortMovies();
         setShortMovies(onSearchShortMovies(allMovies));
     }, [isSearchText, isActiveCheckbox])
 
@@ -57,8 +56,6 @@ function Movies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) {
         setIsLoading(true);
         setAllMovies([]);
         try {
-
-            //console.log(filteredMovies, isSearchText);
             if (isSearchText.length > 0) {
                 const moviesData = onSearch(filteredMovies, isSearchText)
                 if (moviesData.length === 0) {

@@ -10,7 +10,6 @@ function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCa
     const [biggerMoviesCount, setBiggerMoviesCount] = React.useState(0);
     const [isActivePreloader, setIsActivePreloader] = React.useState(false);
     const [moviesToList, setMoviesToList] = React.useState([]);
-
     React.useEffect(() => {
         checkedCountMovies();
         handleResize();
@@ -43,7 +42,6 @@ function MoviesCardList({ movies, isLoading, isSavedCard, onDeleteCard, onSaveCa
     function handlePreloaderButton() {
         checkedCountMovies();
         setMoviesToList(movies.slice(0, moviesToList.length + biggerMoviesCount));
-        //setMoviesCount(moviesCount + biggerMoviesCount);
         if (moviesToList.length >= movies.length - biggerMoviesCount) {
             setIsActivePreloader(false)
         }

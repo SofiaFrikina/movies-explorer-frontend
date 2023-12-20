@@ -13,10 +13,14 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
     const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
     const [message, setMessage] = React.useState(false);
 
+
+    React.useEffect(() => {
+        setAllMovies(filteredMovies);
+    }, [filteredMovies])
+
     React.useEffect(() => {
         getOnSearchMovies();
         //onSetSearchShortMovies();
-        setAllMovies(filteredMovies);
         setShortMovies(onSearchShortMovies(allMovies));
     }, [isSearchText, isActiveCheckbox])
 
@@ -57,10 +61,7 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
 
     function getOnSearchMovies() {
         setIsLoading(true);
-        //setAllMovies(savedMovies);
         try {
-            //setAllMovies(savedMovies);
-            //console.log(filteredMovies, isSearchText);
             if (isSearchText.length > 0) {
                 const moviesData = onSearch(filteredMovies, isSearchText)
                 if (moviesData.length === 0) {
@@ -86,7 +87,7 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            <MoviesCardList movies={isSearchText ? isActiveCheckbox ? shortMovies : filteredMovies : isActiveCheckbox ? shortMovies : allMovies} isLoading={isLoading} isSavedCard={true} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
+            <MoviesCardList movies={isSearchText ? (isActiveCheckbox ? shortMovies : filteredMovies) : (isActiveCheckbox ? shortMovies : allMovies)} isLoading={isLoading} isSavedCard={true} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
             <InfoTooltip
                 isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}
