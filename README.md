@@ -42,3 +42,6 @@ ___
 
 Макет "dark-4"
 
+Pull requests https://github.com/SofiaFrikina/movies-explorer-frontend/pull/2#issue-2050986489
+
+Frontend https://sofia.fr.nomoredomainsmonster.ru
