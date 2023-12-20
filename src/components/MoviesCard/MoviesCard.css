@@ -69,8 +69,16 @@
     background-image: url('../../images/savedbutton.svg');
 }
 
+.element__button-saved:hover {
+    opacity: .8;
+}
+
 .element__button-delete {
     background-image: url('../../images/element__button-delete.svg');
+}
+
+.element__button-delete:hover {
+    opacity: .8;
 }
 
 
