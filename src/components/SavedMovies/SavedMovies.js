@@ -24,9 +24,7 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
         setShortMovies(onSearchShortMovies(allMovies));
     }, [isSearchText, isActiveCheckbox])
 
-    React.useEffect(() => {
-        restoringPreviousSearch();
-    }, [])
+
 
     function handleChangeCheckbox() {
         setIsActiveCheckbox(!isActiveCheckbox);
@@ -42,21 +40,6 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
         return moviesList.filter((movie) => {
             return movie.duration <= 40;
         })
-    }
-
-
-    //восстановление результатов предыдущего поиска: сохранила в localStorage текст запроса, состояние переключателя короткометражек и найденные фильмы
-    function restoringPreviousSearch() {
-        if (localStorage.getItem('previousText')) {
-            setIsSearchText(localStorage.getItem('previousText'));
-        }
-        if (localStorage.getItem('previousCheckbox')) {
-            setIsActiveCheckbox(JSON.parse(localStorage.getItem('previousCheckbox')));
-        }
-        if (localStorage.getItem('previousMovies')) {
-            setAllMovies(JSON.parse(localStorage.getItem('previousMovies')));
-        }
-        return;
     }
 
     function getOnSearchMovies() {
@@ -80,14 +63,13 @@ function SavedMovies({ filteredMovies, onDeleteCard, onSaveCard, savedMovies }) 
         }
     }
 
-
     function closeAllPopups() {
         setInfoTooltipOpen(false);
     }
     return (
         <main className="movies">
             <SearchForm onSearch={setIsSearchText} handleChangeCheckbox={handleChangeCheckbox} isSearchText={isSearchText} isActiveCheckbox={isActiveCheckbox} />
-            <MoviesCardList movies={isSearchText ? (isActiveCheckbox ? shortMovies : filteredMovies) : (isActiveCheckbox ? shortMovies : allMovies)} isLoading={isLoading} isSavedCard={true} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
+            <MoviesCardList movies={!isSearchText ? (isActiveCheckbox ? shortMovies : filteredMovies) : (isActiveCheckbox ? shortMovies : allMovies)} isLoading={isLoading} isSavedCard={true} onDeleteCard={onDeleteCard} onSaveCard={onSaveCard} savedMovies={savedMovies} />
             <InfoTooltip
                 isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}

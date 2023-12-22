@@ -7,25 +7,23 @@ function Profile({ onSignOut, onProfile, errorMessage }) {
     const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation();
     const [isOpenButton, setIsOpenButton] = React.useState(false);
     const currentUser = React.useContext(CurrentUserContext)
+    const { email, name } = values;
 
-    function openButton() {
-        setIsOpenButton(!isOpenButton)
-    }
     //получить значеня инпутов
     React.useEffect(() => {
         resetForm({ email: currentUser.email, name: currentUser.name })
-    }, [currentUser, isOpenButton, resetForm]);
+    }, [currentUser.email, currentUser.name, resetForm]);
 
     //если хоть один инпут не такой, как изначально "сохранить" можно
     React.useEffect(() => {
-        let meanings = currentUser.email !== values.email || currentUser.name !== values.name
+        let meanings = (currentUser.email !== values.email) || (currentUser.name !== values.name)
         setIsOpenButton(meanings);
+
     }, [currentUser.email, currentUser.name, values.email, values.name]);
 
     //функция сохранения/обновления профиля
     function handleProfileSubmit(evt) {
         evt.preventDefault();
-        const { email, name } = values;
         onProfile({ email, name });
     }
 
@@ -46,12 +44,12 @@ function Profile({ onSignOut, onProfile, errorMessage }) {
                     </div>
                     <div className="profile__button-label">
                         <span className="profile__button-error">{errorMessage}</span>
-                        {isOpenButton ? (<button type="submit" onSubmit={handleProfileSubmit} className={`profile__change profile__change-saved ${!isValid ? "profile__change_disable" : ""}`}>Сохранить</button>) : (<button type="submit" className="profile__change profile__change-edit" onClick={(evt) => openButton(evt)}>Редактировать</button>)}
+                        (<button type="submit" onSubmit={handleProfileSubmit} className={`profile__change profile__change-saved ${!isValid || !isOpenButton ? "profile__change_disable" : ''}`}>Редактировать</button>)
                     </div>
                 </form>
-                {!isOpenButton && (<Link to="/" className="profile__logout" onClick={onSignOut}>
+                <Link to="/" className="profile__logout" onClick={onSignOut}>
                     <p className="profile__link">Выйти из аккаунта</p>
-                </Link>)}
+                </Link>
             </section>
         </main>
     )

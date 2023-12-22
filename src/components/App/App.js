@@ -29,6 +29,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [message, setMessage] = React.useState(false);
+  const [succesInfoToolTip, setSuccesInfoToolTip] = React.useState('');
   const [filteredMovies, setFilteredMovies] = React.useState([]);
 
   const cleanErrorMessage = useCallback(() => {
@@ -76,6 +77,7 @@ function App() {
         setInfoTooltipOpen(true);
         if (res) {
           setMessage(true);
+          setSuccesInfoToolTip('Вы успешно зарегестрировались!')
           handleLogin(email, password)
         }
       })
@@ -125,6 +127,11 @@ function App() {
     mainApi.editUser(data)
       .then((newUser) => {
         setCurrentUser(newUser);
+        if (newUser) {
+          setInfoTooltipOpen(true);
+          setMessage(true);
+          setSuccesInfoToolTip('Вы успешно обновили данные!')
+        }
       })
       .catch((err) => {
         setMessage(false);
@@ -144,8 +151,8 @@ function App() {
       setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     } else {
       moviesApi.getMovies()
-        .then((data) => {
-          const resultMovies = moviesArray(data);
+        .then((res) => {
+          const resultMovies = moviesArray(res);
           localStorage.setItem('filteredMovies', JSON.stringify(resultMovies));
           setFilteredMovies(resultMovies);
         })
@@ -156,6 +163,7 @@ function App() {
         });
     }
   }
+
 
   //сохраняем фильм
   function handleSaveMovie(data) {
@@ -172,7 +180,7 @@ function App() {
   function handleDeleteMovie(movieId) {
     mainApi.deleteMovie(movieId)
       .then(() => {
-        setSavedMovies(savedMovies.filter((item) => item._id !== movieId))
+        setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId))
       })
       .catch((err) => {
         console.log(err)
@@ -295,6 +303,7 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
           status={message}
+          succes={succesInfoToolTip}
         />
       </div>
     </CurrentUserContext.Provider>

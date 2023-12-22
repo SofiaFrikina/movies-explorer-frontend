@@ -1,10 +1,10 @@
 import React from 'react';
 
 function MoviesCard({ movie, isSavedCard, onDeleteCard, onSaveCard, savedMovies }) {
-    let [isLiked, setIsLiked] = React.useState(false)
+    let isLiked = false
 
     let likedId;
-    likedId = savedMovies.some((card) => {
+    isLiked = savedMovies.some((card) => {
         if (card.movieId === movie.movieId) {
             likedId = card._id;
             return true
@@ -28,7 +28,6 @@ function MoviesCard({ movie, isSavedCard, onDeleteCard, onSaveCard, savedMovies 
             onDeleteCard(movie._id ? movie._id : likedId)
         } else {
             onSaveCard(movie);
-            setIsLiked(!isLiked)
         }
     }
 
