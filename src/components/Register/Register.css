@@ -55,6 +55,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;    
+    position: relative;
 }
 
 .authorization__text {
@@ -83,6 +84,23 @@
     cursor: pointer;
 }
 
+.authorization__button-label {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+.authorization__button-register {
+    margin-top: 128px;
+}
+
+.authorization__button-login {
+    margin-top: 197px;
+}
+
 .authorization__button {
     margin: 0;
     padding: 0;
@@ -99,16 +117,31 @@
     cursor: pointer;
 }
 
-.authorization__button-register {
-    margin-top: 128px;
-}
-
-.authorization__button-login {
-    margin-top: 197px;
+.authorization__button_unworked {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    cursor: pointer;
+    pointer-events: none;
 }
 
 .authorization__button:hover {
     opacity: .8;
+}
+
+.authorization__button-error {
+    margin: 0;
+    padding: 0;
+    color: #FF004C;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: absolute;
+    align-self: center;
+    top: 0;
+    transform: translateY(calc(100% - 54px));
 }
 
 .authorization__sign {
@@ -145,6 +178,31 @@
     line-height: normal;
     cursor: pointer;
 }
+
+.authorization__text-error {
+    visibility: hidden;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #FF3055;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.authorization__text-error_active {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    transform: translateY(calc(100% + 1px));
+}
+
 
 @media screen and (max-width: 1200px) {
     .authorization {
