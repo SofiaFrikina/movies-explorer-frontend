@@ -42,6 +42,8 @@
 .element__image {
     margin: 0;
     padding: 0;
+    width: 360px;
+    height: 200px;
 }
 
 .element__button-unsaved {
@@ -67,11 +69,28 @@
     background-image: url('../../images/savedbutton.svg');
 }
 
+.element__button-saved:hover {
+    opacity: .8;
+}
+
+.element__button-delete {
+    background-image: url('../../images/element__button-delete.svg');
+}
+
+.element__button-delete:hover {
+    opacity: .8;
+}
+
 
 
 @media screen and (max-width: 1270px) {
     .element {
         width: 342px;
+    }
+
+    .element__image {
+        width: 342px;
+        height: 190px;
     }
 }
 
@@ -86,5 +105,10 @@
 
     .element__time {
         font-size: 10px;
+    }
+
+    .element__image {
+        width: 300px;
+        height: 168px;
     }
 }
